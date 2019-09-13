@@ -1,5 +1,7 @@
 # lu-schedule
 
+[![npm version](https://img.shields.io/npm/v/lu-schedule.svg?style=flat-square)](https://www.npmjs.org/package/lu-schedule)
+
 Node.js API for interacting with Lunds Universitets TimeEdit schedule
 
 ## Features
