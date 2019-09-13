@@ -1,17 +1,22 @@
 {
   "name": "schedule-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "author": "Malcolm Nihlen <malcolm.nihlen@gmail.com>",
   "license": "MIT",
   "scripts": {
     "start": "ts-node --project tsconfig.json test/dev.ts",
-    "build": "rimraf dist && tsc"
+    "clean": "rimraf lib lib-esm _bundles",
+    "build": "yarn clean && tsc && tsc -m es6 --outDir lib-esm && webpack"
   },
   "devDependencies": {
     "@types/node": "^12.7.5",
+    "awesome-typescript-loader": "^5.2.1",
     "rimraf": "^3.0.0",
     "ts-node": "^8.3.0",
-    "typescript": "^3.6.3"
+    "typescript": "^3.6.3",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^4.40.1",
+    "webpack-cli": "^3.3.8"
   }
 }
