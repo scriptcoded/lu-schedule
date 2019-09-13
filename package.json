@@ -7,7 +7,7 @@
   "scripts": {
     "start": "ts-node --project tsconfig.json test/dev.ts",
     "clean": "rimraf lib lib-esm _bundles",
-    "build": "yarn clean && tsc && tsc -m es6 --outDir lib-esm && webpack",
+    "build": "yarn clean && tsc && tsc -m es6 --outDir lib-esm --moduleResolution node && webpack --mode production",
     "test": "jest"
   },
   "devDependencies": {
