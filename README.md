@@ -61,6 +61,25 @@ schedule.load()
 
 ```
 
+Manual instantiation
+
+```js
+const { Schedule } = require('lu-schedule')
+
+const schedule = new Schedule('m1', 'ri14750Yg50003Q0g2QY61l4Z762X653760Y540yZ05QZ5Q6Qu496ZpQc')
+
+// ...
+```
+
+Usage in browser
+
+```js
+// Note that the browser bundle exports LuSchedule instead of just Schedule to avoid naming conflicts
+const schedule = LuSchedule.fromUrl('https://cloud.timeedit.net/lu/web/m1/ri14750Yg50003Q0g2QY61l4Z762X653760Y540yZ05QZ5Q6Qu496ZpQc.html')
+
+// ...
+```
+
 ## Schedule object data (with data from the example above)
 
 ```js
@@ -101,7 +120,7 @@ schedule.load()
       count: '',
       id: '2037000'
     },
-    ... // Only showing one lesson here.
+    // ... Only showing one lesson here.
   ]
 }
 ```
