@@ -1,117 +1,7 @@
 import { get } from './util/http'
 import { parseCalendarCsv } from './util/calendar'
-import { escapeRegExp } from './util/common'
-
-class GroupCollection {
-  groups: Group[]
-  groupNumbers?: number[]
-
-  constructor (groups: Group [], groupNumbers?: number[]) {
-    this.groups = groups
-
-    if (groupNumbers) {
-      this.groupNumbers = groupNumbers
-    }
-  }
-
-  static fromGroupString (course: string, groupString: string): GroupCollection {
-    const groups: Group[] = Group.fromGroupString(course, groupString)
-
-    let hasGroupNumbers = false
-    const groupNumbers = groups.reduce((numbers, group) => {
-      if (group.groupNumbers) {
-        hasGroupNumbers = true
-        return [
-          ...numbers,
-          ...group.groupNumbers
-        ]
-      } else {
-        return numbers
-      }
-    }, [])
-
-    const groupCollection = new GroupCollection(groups)
-
-    if (hasGroupNumbers) {
-      groupCollection.groupNumbers = groupNumbers
-    }
-
-    return groupCollection
-  }
-}
-
-class Group {
-  course: string
-  groupName: string
-
-  groupNumbers?: number[]
-
-  static fromGroupString (course: string, groupString: string): Group[] {
-    const groups: Group[] = []
-    
-    if (course) {
-      const groupRegex = new RegExp(`${escapeRegExp(course)}\s*-\s*(.*)`, 'i')
-      const groupStrings: string[] = groupString.split(',')
-  
-      for (const groupString of groupStrings) {
-        const match = groupString.trim().match(groupRegex)
- 
-        if (match) {
-          const group: Group = {
-            course,
-            groupName: match[1]
-          }
-
-          const rangeMatch = group.groupName
-            .replace(/\s/g, '')
-            .match(/gr\.([0-9]+)(?:-([0-9]+))?/)
-
-          if (rangeMatch) {
-            const start = parseInt(rangeMatch[1])
-            const end = parseInt(rangeMatch[2])
-
-            if (start >= 0) {
-              if (end >= start) {
-                group.groupNumbers = new Array(end - start + 1)
-                  .fill(null)
-                  .map((_, index) => start + index)
-              } else {
-                group.groupNumbers = [start]
-              }
-            }
-
-          }
-
-          groups.push(group)
-        }
-      }
-    }
-
-    return groups
-  }
-}
-
-class Lesson {
-  start: Date
-  end: Date
-  course: string
-  studentGroups?: GroupCollection
-  subGroups?: GroupCollection
-  student: string
-  subCourse: string
-  educationalType: string
-  title: string
-  location: string
-  locationComment: string
-  locationBooking: string
-  educator: string
-  externalEducator: string
-  comment: string
-  url: string
-  reason: string
-  count: string
-  id: string
-}
+import { GroupCollection } from './GroupCollection'
+import { Lesson } from './Lesson'
 
 export class Schedule {
   programmeId: string
@@ -122,6 +12,8 @@ export class Schedule {
 
   lessons: Lesson[]
 
+  httpGet = get
+
   constructor (programmeId: string, id: string) {
     this.programmeId = programmeId
     this.id = id
@@ -130,7 +22,7 @@ export class Schedule {
   async load () {
     const requestUrl: string = `https://cloud.timeedit.net/lu/web/${this.programmeId}/${this.id}.csv`
     
-    const response = await get(requestUrl)
+    const response = await this.httpGet(requestUrl)
 
     const calendarData = parseCalendarCsv(response.data)
 

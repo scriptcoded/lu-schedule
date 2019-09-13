@@ -1,26 +1,12 @@
 import { get as httpsGet, RequestOptions } from 'https'
 import { IncomingMessage } from 'http'
 
-import { isBrowser } from '../util/common'
-
-interface IHttpsResponse extends IncomingMessage {
+interface IHttpsResponse {
   data: string
 }
 
 export function get (url: string): Promise<IHttpsResponse> {
-  if (isBrowser()) {
-    return getXhr(url)
-  } else {
-    return getHttp(url)
-  }
-}
-
-export function getXhr (url: string): Promise<IHttpsResponse> {
-  // var const = new XMLHttpRequest();
-  // xhr.onreadystatechange = function() {};
-  // xhr.open('GET', 'http://www.google.com');
-  // xhr.send()
-  return null
+  return getHttp(url)
 }
 
 export function getHttp (url: string): Promise<IHttpsResponse> {

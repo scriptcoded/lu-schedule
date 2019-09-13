@@ -17,7 +17,12 @@ export function parseCalendarCsv (data): ICalendarData {
 
   const metaRows = rows.slice(1, 3).map(splitRow)
   // const headerRow = rows[3]
-  const dataRows = rows.slice(4).map(splitRow)
+  let dataRows = rows.slice(4).map(splitRow)
+
+  const lastRow = dataRows[dataRows.length - 1]
+  if (lastRow && lastRow.length === 1 && lastRow[0].length <= 0) {
+    dataRows = dataRows.slice(0, -1)
+  }
 
   const metadata: ICalendarMeta = {
     issuer: metaRows[0][1],
