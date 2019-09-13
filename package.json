@@ -1,7 +1,7 @@
 {
   "name": "lu-schedule",
   "version": "1.0.2",
-  "main": "index.js",
+  "main": "lib/index.js",
   "author": "Malcolm Nihlen <malcolm.nihlen@gmail.com>",
   "license": "MIT",
   "keywords": ["lunds universitet", "lund", "lu", "schedule", "timeedit"],
