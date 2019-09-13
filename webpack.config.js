@@ -10,6 +10,7 @@ module.exports = {
     path: path.resolve(__dirname, '_bundles'),
     filename: '[name].js',
     libraryTarget: 'umd',
+    libraryExport: 'Schedule',
     library: 'LuSchedule',
     umdNamedDefine: true
   },
