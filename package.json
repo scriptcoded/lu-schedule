@@ -4,6 +4,12 @@
   "main": "index.js",
   "author": "Malcolm Nihlen <malcolm.nihlen@gmail.com>",
   "license": "MIT",
+  "keywords": ["lunds universitet", "lund", "lu", "schedule", "timeedit"],
+  "homepage": "https://github.com/scriptcoded/lu-schedule#readme",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/scriptcoded/lu-schedule.git"
+  },
   "scripts": {
     "start": "ts-node --project tsconfig.json test/dev.ts",
     "clean": "rimraf lib lib-esm _bundles",
