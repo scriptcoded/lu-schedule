@@ -12,8 +12,9 @@
   },
   "scripts": {
     "start": "ts-node --project tsconfig.json test/dev.ts",
-    "clean": "rimraf lib lib-esm _bundles",
+    "clean": "rimraf lib lib-esm bundles",
     "build": "yarn clean && tsc && tsc -m es6 --outDir lib-esm --moduleResolution node && webpack --mode production",
+    "build:bundles": "webpack --mode production",
     "test": "jest"
   },
   "devDependencies": {
